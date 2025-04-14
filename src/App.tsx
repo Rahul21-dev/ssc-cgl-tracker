@@ -1,11 +1,8 @@
 import SSCCGLTracker from './components/SSCCGLTracker'
+import './index.css'
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <SSCCGLTracker />
-    </div>
-  )
+  return <SSCCGLTracker />
 }
 
 export default App
