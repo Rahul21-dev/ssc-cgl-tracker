@@ -1,0 +1,47 @@
+.tracker-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-trigger {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-trigger[data-state="active"] {
+  background: #2563eb;
+  color: white;
+}
+
+.routine-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.routine-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.time {
+  font-weight: bold;
+  min-width: 80px;
+}
+
+.completed {
+  color: green;
+  margin-left: auto;
+}
