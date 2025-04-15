@@ -6,20 +6,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 // Sample daily routine structure
 const dailyRoutine = [
-  { time: "5:00 AM - 6:00 AM", task: "Morning Revision (Previous Day Topics)" },
-  { time: "6:00 AM - 7:30 AM", task: "Quantitative Aptitude Practice" },
-  { time: "7:30 AM - 8:00 AM", task: "Breakfast" },
-  { time: "8:00 AM - 10:00 AM", task: "English Language Study" },
-  { time: "10:00 AM - 10:30 AM", task: "Short Break" },
-  { time: "10:30 AM - 12:30 PM", task: "General Awareness Study" },
-  { time: "12:30 PM - 2:00 PM", task: "Lunch Break" },
-  { time: "2:00 PM - 4:00 PM", task: "Reasoning Practice" },
-  { time: "4:00 PM - 4:30 PM", task: "Tea Break" },
-  { time: "4:30 PM - 6:30 PM", task: "Mock Test/Sectional Tests" },
-  { time: "6:30 PM - 7:30 PM", task: "Error Analysis & Doubt Solving" },
-  { time: "7:30 PM - 8:30 PM", task: "Dinner" },
-  { time: "8:30 PM - 9:30 PM", task: "Current Affairs Revision" },
-  { time: "9:30 PM - 10:00 PM", task: "Planning for Next Day" }
+  { time: "7:00 AM - 8:00 AM", task: "Wake Up + Freshen Up" },
+  { time: "8:00 AM - 10:00 AM", task: "Study Slot 1" },
+  { time: "10:00 AM - 10:15 AM", task: "Break" },
+  { time: "10:15 AM - 12:15 PM", task: "Study Slot 2" },
+  { time: "12:15 PM - 1:00 PM", task: "Break / Relax" },
+  { time: "1:00 PM - 1:30 PM", task: "Lunch" },
+  { time: "1:30 PM - 3:30 PM", task: "Study Slot 3" },
+  { time: "3:30 PM - 4:00 PM", task: "Break" },
+  { time: "4:00 PM - 6:00 PM", task: "Cricket / Physical Activity" },
+  { time: "6:00 PM - 6:30 PM", task: "Rest / Tea Break" },
+  { time: "6:30 PM - 8:30 PM", task: "Study Slot 4" },
+  { time: "8:30 PM - 10:00 PM", task: "Dinner + Light Relaxation" },
+  { time: "10:00 PM - 12:00 AM", task: "Relaxation Time / Entertainment" }
 ]
 
 export default function SSCCGLTracker() {
@@ -39,7 +38,7 @@ export default function SSCCGLTracker() {
     })
   }
 
-  const days = Array.from({ length: 365 }, (_, i) => `Day ${i + 1}`)
+  const days = Array.from({ length: 7 }, (_, i) => `Day ${i + 1}`) // Show first 7 days as example
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
@@ -49,7 +48,7 @@ export default function SSCCGLTracker() {
         <Tabs defaultValue="Day 1" className="w-full">
           <div className="overflow-x-auto pb-2">
             <TabsList className="grid grid-flow-col auto-cols-max h-auto">
-              {days.slice(0, 7).map(day => (
+              {days.map(day => (
                 <TabsTrigger key={day} value={day} className="px-4 py-2">
                   {day}
                 </TabsTrigger>
@@ -57,33 +56,35 @@ export default function SSCCGLTracker() {
             </TabsList>
           </div>
 
-          {days.slice(0, 7).map(day => (
-            <TabsContent key={day} value={day}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl">{day} Routine</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {dailyRoutine.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-4 p-3 border rounded-lg">
-                      <Checkbox
-                        id={`${day}-task-${index}`}
-                        checked={dailyChecks[day][index]}
-                        onChange={() => toggleTask(day, index)}
-                        className="h-6 w-6"
-                      />
-                      <div className="flex-1">
-                        <Label htmlFor={`${day}-task-${index}`} className="text-lg">
-                          <span className="font-medium text-gray-500">{item.time}</span> - {item.task}
-                        </Label>
+          {days.map(day => (
+            <TabsContent key={day} value={day} asChild>
+              <div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">{day} Routine</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {dailyRoutine.map((item, index) => (
+                      <div key={index} className="flex items-center space-x-4 p-3 border rounded-lg">
+                        <Checkbox
+                          id={`${day}-task-${index}`}
+                          checked={dailyChecks[day][index]}
+                          onCheckedChange={() => toggleTask(day, index)}
+                          className="h-6 w-6"
+                        />
+                        <div className="flex-1">
+                          <Label htmlFor={`${day}-task-${index}`} className="text-lg">
+                            <span className="font-medium text-gray-500">{item.time}</span> - {item.task}
+                          </Label>
+                        </div>
+                        {dailyChecks[day][index] && (
+                          <span className="text-green-500 font-medium">Completed</span>
+                        )}
                       </div>
-                      {dailyChecks[day][index] && (
-                        <span className="text-green-500 font-medium">Completed</span>
-                      )}
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
