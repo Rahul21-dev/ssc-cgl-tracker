@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as Tabs from '@radix-ui/react-tabs'
-import './styles.css' // Create this file for basic styling
+import '@styles./globals.css' // Create this file for basic styling
 
 // Sample routine data
 const dailyRoutine = [
