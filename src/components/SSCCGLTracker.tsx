@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import * as Tabs from '@radix-ui/react-tabs'
+import './styles.css' // Create this file for basic styling
 
-// Sample daily routine structure
+// Sample routine data
 const dailyRoutine = [
   { time: "7:00 AM - 8:00 AM", task: "Wake Up + Freshen Up" },
   { time: "8:00 AM - 10:00 AM", task: "Study Slot 1" },
@@ -31,69 +29,49 @@ export default function SSCCGLTracker() {
   })
 
   const toggleTask = (day: string, taskIndex: number) => {
-    setDailyChecks(prev => {
-      const newChecks = { ...prev }
-      newChecks[day][taskIndex] = !newChecks[day][taskIndex]
-      return newChecks
-    })
+    setDailyChecks(prev => ({
+      ...prev,
+      [day]: prev[day].map((val, i) => 
+        i === taskIndex ? !val : val
+      )
+    }))
   }
 
-  const days = Array.from({ length: 7 }, (_, i) => `Day ${i + 1}`) // Show first 7 days as example
-
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-6">SSC CGL Tier 1 - 365 Day Tracker</h1>
-        
-        <Tabs defaultValue="Day 1" className="w-full">
-          <div className="overflow-x-auto pb-2">
-            <TabsList className="grid grid-flow-col auto-cols-max h-auto">
-              {days.map(day => (
-                <TabsTrigger key={day} value={day} className="px-4 py-2">
-                  {day}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-
-          {days.map(day => (
-            <TabsContent key={day} value={day} asChild>
-              <div>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xl">{day} Routine</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {dailyRoutine.map((item, index) => (
-                      <div key={index} className="flex items-center space-x-4 p-3 border rounded-lg">
-                        <Checkbox
-                          id={`${day}-task-${index}`}
-                          checked={dailyChecks[day][index]}
-                          onCheckedChange={() => toggleTask(day, index)}
-                          className="h-6 w-6"
-                        />
-                        <div className="flex-1">
-                          <Label htmlFor={`${day}-task-${index}`} className="text-lg">
-                            <span className="font-medium text-gray-500">{item.time}</span> - {item.task}
-                          </Label>
-                        </div>
-                        {dailyChecks[day][index] && (
-                          <span className="text-green-500 font-medium">Completed</span>
-                        )}
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
+    <div className="tracker-container">
+      <h1>SSC CGL Tier 1 - 365 Day Tracker</h1>
+      
+      <Tabs.Root defaultValue="Day 1">
+        <Tabs.List className="tabs-list">
+          {['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'].map(day => (
+            <Tabs.Trigger key={day} value={day} className="tab-trigger">
+              {day}
+            </Tabs.Trigger>
           ))}
-        </Tabs>
+        </Tabs.List>
 
-        <div className="mt-6 text-center text-gray-500">
-          <p>Track your daily progress for all 365 days of SSC CGL Tier 1 preparation</p>
-          <p className="mt-2">Completed {Object.values(dailyChecks).flat().filter(Boolean).length} tasks so far</p>
-        </div>
-      </div>
+        {['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'].map(day => (
+          <Tabs.Content key={day} value={day} className="tab-content">
+            <h2>{day} Routine</h2>
+            <div className="routine-grid">
+              {dailyRoutine.map((item, index) => (
+                <div key={index} className="routine-item">
+                  <input
+                    type="checkbox"
+                    checked={dailyChecks[day][index]}
+                    onChange={() => toggleTask(day, index)}
+                  />
+                  <span className="time">{item.time}</span>
+                  <span className="task">{item.task}</span>
+                  {dailyChecks[day][index] && (
+                    <span className="completed">✓</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Tabs.Content>
+        ))}
+      </Tabs.Root>
     </div>
   )
 }
