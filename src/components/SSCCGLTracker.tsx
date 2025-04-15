@@ -5,23 +5,23 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, BookOpen, CheckCircle } from "lucide-react"
 
+// Sample daily routine structure
 const dailyRoutine = [
-  { time: "5:00 AM - 6:00 AM", task: "Morning Revision", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "6:00 AM - 7:30 AM", task: "Quantitative Aptitude", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "7:30 AM - 8:00 AM", task: "Breakfast", icon: <Clock className="w-4 h-4" /> },
-  { time: "8:00 AM - 10:00 AM", task: "English Language", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "10:00 AM - 10:30 AM", task: "Short Break", icon: <Clock className="w-4 h-4" /> },
-  { time: "10:30 AM - 12:30 PM", task: "General Awareness", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "12:30 PM - 2:00 PM", task: "Lunch Break", icon: <Clock className="w-4 h-4" /> },
-  { time: "2:00 PM - 4:00 PM", task: "Reasoning Practice", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "4:00 PM - 4:30 PM", task: "Tea Break", icon: <Clock className="w-4 h-4" /> },
-  { time: "4:30 PM - 6:30 PM", task: "Mock Tests", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "6:30 PM - 7:30 PM", task: "Error Analysis", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "7:30 PM - 8:30 PM", task: "Dinner", icon: <Clock className="w-4 h-4" /> },
-  { time: "8:30 PM - 9:30 PM", task: "Current Affairs", icon: <BookOpen className="w-4 h-4" /> },
-  { time: "9:30 PM - 10:00 PM", task: "Planning", icon: <BookOpen className="w-4 h-4" /> }
+  { time: "5:00 AM - 6:00 AM", task: "Morning Revision (Previous Day Topics)" },
+  { time: "6:00 AM - 7:30 AM", task: "Quantitative Aptitude Practice" },
+  { time: "7:30 AM - 8:00 AM", task: "Breakfast" },
+  { time: "8:00 AM - 10:00 AM", task: "English Language Study" },
+  { time: "10:00 AM - 10:30 AM", task: "Short Break" },
+  { time: "10:30 AM - 12:30 PM", task: "General Awareness Study" },
+  { time: "12:30 PM - 2:00 PM", task: "Lunch Break" },
+  { time: "2:00 PM - 4:00 PM", task: "Reasoning Practice" },
+  { time: "4:00 PM - 4:30 PM", task: "Tea Break" },
+  { time: "4:30 PM - 6:30 PM", task: "Mock Test/Sectional Tests" },
+  { time: "6:30 PM - 7:30 PM", task: "Error Analysis & Doubt Solving" },
+  { time: "7:30 PM - 8:30 PM", task: "Dinner" },
+  { time: "8:30 PM - 9:30 PM", task: "Current Affairs Revision" },
+  { time: "9:30 PM - 10:00 PM", task: "Planning for Next Day" }
 ]
 
 export default function SSCCGLTracker() {
@@ -42,50 +42,17 @@ export default function SSCCGLTracker() {
   }
 
   const days = Array.from({ length: 365 }, (_, i) => `Day ${i + 1}`)
-  const currentDay = "Day 1"
-  const completionPercentage = Math.round(
-    (dailyChecks[currentDay].filter(Boolean).length / dailyRoutine.length) * 100
-  )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-indigo-800 mb-2">
-            SSC CGL Tier 1 Tracker
-          </h1>
-          <p className="text-lg text-indigo-600">
-            Your 365-day preparation journey
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-4 text-indigo-700">
-            <Calendar className="w-5 h-5" />
-            <span>{new Date().toLocaleDateString()}</span>
-          </div>
-        </header>
-
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-          <div className="p-6 bg-indigo-700 text-white">
-            <h2 className="text-xl font-semibold">Today's Progress</h2>
-            <div className="flex items-center gap-4 mt-4">
-              <Progress 
-                value={completionPercentage} 
-                className="h-3 bg-indigo-600"
-                indicatorClassName="bg-white"
-              />
-              <span className="font-medium">{completionPercentage}%</span>
-            </div>
-          </div>
-        </div>
-
-        <Tabs defaultValue={currentDay}>
-          <div className="mb-6 bg-white rounded-lg shadow-sm p-1">
-            <TabsList className="grid grid-flow-col auto-cols-fr h-auto">
+        <h1 className="text-3xl font-bold text-center mb-6">SSC CGL Tier 1 - 365 Day Tracker</h1>
+        
+        <Tabs defaultValue="Day 1" className="w-full">
+          <div className="overflow-x-auto pb-2">
+            <TabsList className="grid grid-flow-col auto-cols-max h-auto">
               {days.slice(0, 7).map(day => (
-                <TabsTrigger 
-                  key={day} 
-                  value={day}
-                  className="py-3 data-[state=active]:bg-indigo-100 data-[state=active]:text-indigo-700"
-                >
+                <TabsTrigger key={day} value={day} className="px-4 py-2">
                   {day}
                 </TabsTrigger>
               ))}
@@ -94,54 +61,41 @@ export default function SSCCGLTracker() {
 
           {days.slice(0, 7).map(day => (
             <TabsContent key={day} value={day}>
-              <Card className="border-0 shadow-lg">
-                <CardHeader className="bg-indigo-700 rounded-t-lg">
-                  <CardTitle className="text-white text-xl">
-                    {day} Routine
-                  </CardTitle>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">{day} Routine</CardTitle>
                 </CardHeader>
-                <CardContent className="p-0">
-                  <ul className="divide-y divide-gray-200">
-                    {dailyRoutine.map((item, index) => (
-                      <li key={index} className="hover:bg-gray-50 transition-colors">
-                        <div className="flex items-center p-4 gap-4">
-                          <div className="flex-shrink-0">
-                            <Checkbox
-                              id={`${day}-task-${index}`}
-                              checked={dailyChecks[day][index]}
-                              onCheckedChange={() => toggleTask(day, index)}
-                              className="h-6 w-6 border-2 border-indigo-300 data-[state=checked]:bg-indigo-600"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 text-indigo-700">
-                              {item.icon}
-                              <span className="font-medium text-sm">{item.time}</span>
-                            </div>
-                            <Label 
-                              htmlFor={`${day}-task-${index}`} 
-                              className={`block mt-1 text-lg ${dailyChecks[day][index] ? 'line-through text-gray-400' : 'text-gray-800'}`}
-                            >
-                              {item.task}
-                            </Label>
-                          </div>
-                          {dailyChecks[day][index] && (
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                <CardContent className="space-y-4">
+                  {dailyRoutine.map((item, index) => (
+                    <div key={index} className="flex items-center space-x-4 p-3 border rounded-lg">
+                      <Checkbox
+                        id={`${day}-task-${index}`}
+                        checked={dailyChecks[day][index]}
+                        onChange={() => toggleTask(day, index)}
+                        className="h-6 w-6"
+                      />
+                      <div className="flex-1">
+                        <Label htmlFor={`${day}-task-${index}`} className="text-lg">
+                          <span className="font-medium text-gray-500">{item.time}</span> - {item.task}
+                        </Label>
+                      </div>
+                      {dailyChecks[day][index] && (
+                        <span className="text-green-500 font-medium">Completed</span>
+                      )}
+                    </div>
+                  )}
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             </TabsContent>
           ))}
         </Tabs>
 
-        <footer className="mt-8 text-center text-gray-600 text-sm">
-          <p>Stay consistent! You've completed {Object.values(dailyChecks).flat().filter(Boolean).length} tasks so far.</p>
-          <p className="mt-1">© {new Date().getFullYear()} SSC CGL Prep Tracker</p>
-        </footer>
+        <div className="mt-6 text-center text-gray-500">
+          <p>Track your daily progress for all 365 days of SSC CGL Tier 1 preparation</p>
+          <p className="mt-2">Completed {Object.values(dailyChecks).flat().filter(Boolean).length} tasks so far</p>
+        </div>
       </div>
     </div>
   )
