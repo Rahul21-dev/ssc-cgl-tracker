@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig as defineVitePressConfig } from 'vitepress'
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-  }
+  // VitePress-specific config
+  ...defineVitePressConfig({
+    title: 'SSC CGL Tracker'
+  })
 })
