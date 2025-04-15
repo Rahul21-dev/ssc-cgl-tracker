@@ -18,7 +18,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.3.3",
     "vite": "^5.1.4",
-    "eslint": "^8.56.0", // Downgraded to v8
-    "eslint-config-next": "14.1.0" // Pinned exact version
+    "eslint": "^8.56.0", 
+    "eslint-config-next": "14.1.0"
   }
 }
