@@ -3,8 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
-import { Button } from "@/components/ui/button"
 
 // Sample daily routine structure
 const dailyRoutine = [
@@ -82,8 +80,6 @@ export default function SSCCGLTracker() {
                       {dailyChecks[day][index] && (
                         <span className="text-green-500 font-medium">Completed</span>
                       )}
-                    </div>
-                  )}
                     </div>
                   ))}
                 </CardContent>
