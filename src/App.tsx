@@ -1,8 +1,11 @@
-import SSCCGLTracker from './components/SSCCGLTracker'
-import './index.css'
+import SSCCGLTracker from './components/SSCCGLTracker';
 
 function App() {
-  return <SSCCGLTracker />
+  return (
+    <div className="app">
+      <SSCCGLTracker />
+    </div>
+  );
 }
 
-export default App
+export default App;
