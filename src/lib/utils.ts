@@ -1,3 +1,3 @@
-export function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ')
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
